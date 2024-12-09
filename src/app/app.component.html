@@ -1,0 +1,88 @@
+<header class="custom-navbar">
+  <nav class="navbar navbar-expand-lg text-nowrap">
+    <div class="container">
+      <a class="navbar-brand fs-4" routerLink="/catalogo">PANdora</a>
+
+      <!-- mensajes de bienvenida adaptados a las pantallas -->
+      @if (authService.isLogeado()) {
+        <!-- pantallas grandes -->
+        <span class="navbar-text d-none d-xl-block d-lg-block fs-5">
+          ¡Bienvenido/a {{ authService.getUsuario() }}!
+        </span>
+        <!-- pantallas de tablet y movil -->
+        <span class="navbar-text d-lg-none d-xl-none fs-4">
+          ¡Hola {{ authService.getUsuario() }}!
+        </span>
+      }
+
+      <!-- boton de menú hamburguesa para pantallas pequeñas -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- nav bar con las diferentes opciones -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/catalogo"
+              routerLinkActive="active"
+            >
+              Catálogo
+            </a>
+          </li>
+          <!-- si el usuario está logeado se muestran -->
+          @if (authService.isLogeado()) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/reservas"
+              routerLinkActive="active"
+            >
+              Mis Reservas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/carrito" routerLinkActive="active"
+              >Carrito</a
+            >
+          </li>
+          @if (authService.isAdmin()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin" routerLinkActive="active"
+              >Administración</a
+            >
+          </li>
+          } }
+        </ul>
+
+        <div class="navbar-nav">
+          @if (!authService.isLogeado()) {
+          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+          <a class="nav-link" routerLink="/registro">Registrarse</a>
+          } @else {
+          <a class="nav-link" (click)="logout()" style="cursor: pointer"
+            >Cerrar Sesión</a
+          >
+          }
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container py-4">
+  <router-outlet></router-outlet>
+</main>
+<!-- footer con el nombre -->
+<footer class="custom-footer py-3 mt-auto">
+  <div class="container text-center">
+    <p class="mb-0 fs-3">PANdora</p>
+  </div>
+</footer>

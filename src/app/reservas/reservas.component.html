@@ -1,0 +1,159 @@
+<div class="container mt-4">
+  <h2>Mis Reservas</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card resumen-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- muestra las reservas que tiene el usuario -->
+            <div>
+              <h5 class="mb-0">Total Reservas</h5>
+              <h2 class="mb-0">
+                {{ reservasActivas.length + historialReservas.length }}
+              </h2>
+            </div>
+            <div>
+              <h5 class="mb-0">Pendientes</h5>
+              <h2 class="text-warning mb-0">{{ reservasActivas.length }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- botones para mostrar reservas activas o historial, el que no está seleccionado solo tiene el borde, el seleccionado sale marrón entero -->
+  <div class="mb-4">
+    <button
+      class="btn me-2"
+      [class.btn-primary]="!mostrarHistorial"
+      [class.btn-outline-primary]="mostrarHistorial"
+      (click)="mostrarHistorial = false"
+    >
+      Reservas activas
+    </button>
+    <button
+      class="btn"
+      [class.btn-primary]="mostrarHistorial"
+      [class.btn-outline-primary]="!mostrarHistorial"
+      (click)="mostrarHistorial = true"
+    >
+      Historial
+    </button>
+  </div>
+
+  <!-- reservas activas -->
+  @if (!mostrarHistorial) {
+  <h3 class="mb-4">Reservas activas</h3>
+  <!-- si no tiene reservas, routerlink a catalogo -->
+  @if (reservasActivas.length === 0) {
+  <div class="text-center py-5">
+    <p>No tienes reservas activas</p>
+    <button class="btn btn-primary" routerLink="/catalogo">
+      Hacer una reserva
+    </button>
+  </div>
+  } 
+  <!-- si tiene, informacion de las reservas en cards -->
+  @else { @for (reserva of reservasActivas; track reserva._id) {
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>
+        <span>Realizada: {{ formatearFecha(reserva.fechaCreacion) }}</span>
+      </div>
+      <div class="d-flex align-items-center">
+        <span class="me-3"
+          >Recoger: {{ reserva.fechaRecogida | date : "dd/MM/yyyy" }} a las
+          {{ reserva.horaRecogida }}</span
+        >
+        @if (reserva.estado === 'pendiente') {
+        
+        <span class="estado-badge fw-bold estado-pendiente text-nowrap"
+          >En preparación</span
+        >
+        <button
+          class="btn btn-danger btn-sm ms-3"
+          (click)="cancelarReserva(reserva._id!)"
+        >
+          X
+        </button>
+        }
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        @for (producto of reserva.productos; track producto.producto) {
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div>
+            {{ producto.producto }}
+            @if (producto.extra) {
+            <small class="text-muted ms-2">({{ producto.extra }})</small>
+            }
+          </div>
+          <div class="text-end">
+            <span>{{ producto.cantidad }}x</span>
+            <span class="ms-2">{{ producto.precio * producto.cantidad }}€</span>
+          </div>
+        </li>
+        }
+      </ul>
+      <div class="mt-3 text-end">
+        <h5>Total: {{ reserva.precioTotal }}€</h5>
+      </div>
+    </div>
+  </div>
+  } } } 
+  <!-- historial de reservas con su informacion -->
+  @else {
+  <h3 class="mb-4">Historial de Reservas</h3>
+  @if (historialReservas.length === 0) {
+  <div class="text-center py-5">
+    <p>No tienes reservas en el historial</p>
+  </div>
+  } @else { @for (reserva of historialReservas; track reserva._id) {
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>
+        <span>Realizada: {{ formatearFecha(reserva.fechaCreacion) }}</span>
+      </div>
+      <div class="d-flex align-items-center">
+        <span class="me-3"
+          >Recogida: {{ reserva.fechaRecogida | date : "dd/MM/yyyy" }} a las
+          {{ reserva.horaRecogida }}</span
+        >
+        @if (reserva.estado === 'cancelada') {
+        <span class="estado-badge fw-bold bg-danger">Reserva cancelada</span>
+        } @else {
+        <span class="estado-badge fw-bold estado-completada">Completada</span>
+        }
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        @for (producto of reserva.productos; track producto.producto) {
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div>
+            {{ producto.producto }}
+            @if (producto.extra) {
+            <small class="text-muted ms-2">({{ producto.extra }})</small>
+            }
+          </div>
+          <div class="text-end">
+            <span>{{ producto.cantidad }}x</span>
+            <span class="ms-2">{{ producto.precio * producto.cantidad }}€</span>
+          </div>
+        </li>
+        }
+      </ul>
+      <div class="mt-3 text-end">
+        <h5>Total: {{ reserva.precioTotal }}€</h5>
+      </div>
+    </div>
+  </div>
+  } } }
+</div>

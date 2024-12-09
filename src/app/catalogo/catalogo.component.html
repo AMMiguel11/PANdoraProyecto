@@ -1,0 +1,43 @@
+<div class="container py-4">
+  <header class="mb-4">
+    <!-- sitemas de filtros por palabra y categoria -->
+    <h1>Nuestros Productos</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar productos..."
+          [(ngModel)]="palabra"
+          (ngModelChange)="filtrarProductos()"
+        />
+      </div>
+      <div class="col-md-6">
+        <select
+          class="form-select"
+          [(ngModel)]="categoria"
+          (ngModelChange)="filtrarProductos()"
+        >
+          <option value="">Todas las categorías</option>
+          @for (categoria of categorias; track categoria) {
+            <option [value]="categoria">{{ categoria }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (producto of productosFiltrados; track producto._id) {
+      <div class="col">
+        <app-tarjeta-producto [producto]="producto"></app-tarjeta-producto>
+      </div>
+    }
+  </div>
+<!-- si no se encuentran productos, muestra un mensaje -->
+  @if (productosFiltrados.length === 0) {
+    <div class="text-center py-5">
+      <h3>No se encontraron productos</h3>
+    </div>
+  }
+</div>

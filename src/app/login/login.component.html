@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+          <!-- si da error muestra un mensaje de los que cubrimos en la lógica -->
+          @if (error){
+          <div class="alert alert-danger mb-3">
+            {{ getError(error) }}
+          </div>
+          }
+
+          <!-- formulario de logeo -->
+          <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [(ngModel)]="pass"
+                name="password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+              Iniciar Sesión
+            </button>
+
+            <!-- routerLink a registro si no tiene cuenta -->
+            <p class="text-center mt-3">
+              ¿No tienes cuenta?
+              <a routerLink="/registro">Regístrate</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

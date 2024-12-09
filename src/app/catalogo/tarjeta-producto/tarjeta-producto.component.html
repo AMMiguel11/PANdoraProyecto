@@ -1,0 +1,46 @@
+<div class="card h-100">
+  <img
+    [src]="producto.urlImagen"
+    [alt]="producto.nombre"
+    class="card-img-top"
+    style="height: 300px; object-fit: contain"
+  />
+
+  <!-- tarjeta de cada producto con los detalles y los botones para ver más detalles y añadir al carrito (si esta logeado el usuario) -->
+  <div class="card-body">
+    <h5 class="card-title">{{ producto.nombre }}</h5>
+    <p class="card-text">{{ producto.descripcion }}</p>
+    <p class="card-text">
+      <small class="text-muted">
+        Tiempo de preparación: {{ producto.tiempoPreparacion }} min
+      </small>
+    </p>
+    <p class="precio fw-bold">{{ producto.precio.toFixed(2) }}€</p>
+  </div>
+<div class="mt-auto">
+  <div class="stock stock-info mx-3 mb-4">Stock disponible: {{ producto.stock }}</div>
+
+  <div class="card-footer d-flex justify-content-between align-items-center">
+    <a
+      class="btn btn-outline-primary text-nowrap me-2"
+      [routerLink]="['/catalogo', producto._id]"
+    >
+      Ver Detalles
+    </a>
+    <button
+      class="btn btn-primary text-nowrap ms-2 me-2"
+      [disabled]="!authService.isLogeado()"
+      (click)="agregarAlCarrito()"
+    >
+      {{ producto.stock > 0 ? "Añadir al carrito" : "Reservar otro día" }}
+    </button>
+  </div>
+</div>
+
+<!-- si está agotado muestra un badge arriba a la derecha -->
+  @if (producto.stock === 0) {
+  <div class="position-absolute top-0 end-0 p-2">
+    <span class="badge bg-danger">Agotado</span>
+  </div>
+  }
+</div>

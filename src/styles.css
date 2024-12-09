@@ -1,0 +1,123 @@
+/* aqui defino variables para los colores, que uso en en toda la página */
+:root {
+  --color-fondo: #f5e6d3;
+  --color-principal: #a67b5b;
+  --color-oscuro: #66443a;
+  --color-claro: #f7ecdc;
+  --color-texto: #2c1810;
+  --color-footer-tarjeta: #f0e0cc;
+  --color-fondo-outline: #fcf7f1;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* botones */
+.btn-primary {
+  background-color: var(--color-oscuro);
+  border-color: var(--color-oscuro);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+}
+
+.btn-outline-primary {
+  color: var(--color-oscuro);
+  background-color: var(--color-fondo-outline);
+  border-color: var(--color-oscuro);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-oscuro);
+  border-color: var(--color-claro);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  opacity: 0.5;
+}
+
+/* tarjetas colores */
+.card {
+  background-color: var(--color-claro);
+  border-color: var(--color-principal);
+}
+
+.card-footer {
+  background-color: var(--color-footer-card);
+  border-top: 1px solid var(--color-principal);
+}
+
+/* formularios, filtros y categorías */
+.form-select:focus {
+  border-color: var(--color-principal);
+  box-shadow: 0 0 0 0.25rem rgba(166, 123, 91, 0.25);
+}
+.form-control:focus {
+  border-color: var(--color-principal);
+  box-shadow: 0 0 0 0.25rem rgba(166, 123, 91, 0.25);
+}
+
+/* color footer */
+.bg-light {
+  background-color: var(--color-claro);
+}
+
+/* navbar texto y colores, y que quede subrayado al activar uno*/
+.custom-navbar {
+  background-color: var(--color-oscuro);
+  border-bottom: 2px solid var(--color-principal);
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  color: var(--color-claro);
+}
+
+.custom-navbar .nav-link.active {
+  color: var(--color-fondo);
+  font-weight: bold;
+  position: relative;
+}
+
+.custom-navbar .navbar-nav .nav-link:hover {
+  color: var(--color-fondo);
+  font-weight: bold;
+}
+.custom-navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-claro);
+}
+
+.custom-navbar .navbar-brand {
+  color: var(--color-claro);
+  font-weight: bold;
+}
+
+.navbar-text {
+  padding: 0 3rem;
+  color: var(--color-claro);
+  font-weight: bold;
+}
+
+/* footer texto y colores*/
+.custom-footer {
+  background-color: var(--color-oscuro);
+  color: var(--color-claro);
+  border-top: 2px solid var(--color-principal);
+}
+footer {
+  font-weight: bold;
+}

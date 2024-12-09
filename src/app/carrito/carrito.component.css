@@ -1,0 +1,22 @@
+.text-precio {
+  color: #b8860b;
+  font-weight: bold;
+}
+
+.card {
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-select {
+  max-width: 200px;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+}

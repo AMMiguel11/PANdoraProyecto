@@ -1,0 +1,379 @@
+<div class="container mt-4">
+  <h2>Panel de Administración</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card resumen-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <!--panel informativo general con total de reservas y pendientes-->
+              <h5 class="mb-0">Total Reservas</h5>
+              <h2 class="mb-0">
+                {{ reservasActivas.length + historialReservas.length }}
+              </h2>
+            </div>
+            <div>
+              <h5 class="mb-0">Pendientes</h5>
+              <h2 class="mb-0 text-warning">{{ reservasActivas.length }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- botones con validacion para que salga en marrón el seleccionado y los demás solo tengan borde -->
+    <div class="mb-4">
+      <button
+        class="btn me-2"
+        [class.btn-primary]="
+          !mostrarHistorial && !mostrarStock && !mostrarNuevoProducto
+        "
+        [class.btn-outline-primary]="
+          mostrarHistorial || mostrarStock || mostrarNuevoProducto
+        "
+        (click)="
+          mostrarHistorial = false;
+          mostrarStock = false;
+          mostrarNuevoProducto = false
+        "
+      >
+        Reservas Activas
+      </button>
+      <button
+        class="btn"
+        [class.btn-primary]="mostrarHistorial"
+        [class.btn-outline-primary]="!mostrarHistorial"
+        (click)="
+          mostrarHistorial = true;
+          mostrarStock = false;
+          mostrarNuevoProducto = false
+        "
+      >
+        Historial
+      </button>
+      <button
+        class="btn ms-2"
+        [class.btn-primary]="mostrarStock"
+        [class.btn-outline-primary]="!mostrarStock"
+        (click)="
+          mostrarStock = true;
+          mostrarHistorial = false;
+          mostrarNuevoProducto = false
+        "
+      >
+        Gestión de Productos
+      </button>
+      <button
+        class="btn ms-2"
+        [class.btn-primary]="mostrarNuevoProducto"
+        [class.btn-outline-primary]="!mostrarNuevoProducto"
+        (click)="
+          mostrarNuevoProducto = true;
+          mostrarHistorial = false;
+          mostrarStock = false
+        "
+      >
+        Nuevo Producto
+      </button>
+    </div>
+
+    <!--formulario para añadir un producto-->
+    @if (mostrarNuevoProducto) {
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Añadir Nuevo Producto</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="crearProducto()" #productoForm="ngForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="formularioProducto.nombre"
+                name="nombre"
+                required
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Categoría</label>
+              <select
+                class="form-select"
+                [(ngModel)]="formularioProducto.categoria"
+                name="categoria"
+                required
+              >
+                <option value="">Selecciona una categoría</option>
+                @for (categoria of categorias; track categoria) {
+                <option [value]="categoria">{{ categoria }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Tipo</label>
+              <select
+                class="form-select"
+                [(ngModel)]="formularioProducto.tipo"
+                name="tipo"
+                required
+              >
+                <option value="">Selecciona un tipo</option>
+                @for (tipo of tipos; track tipo) {
+                <option [value]="tipo">{{ tipo }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Precio</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="formularioProducto.precio"
+                name="precio"
+                step="0.01"
+                min="0"
+                required
+              />
+              <!-- el step permite iterar por los decimales y el min es para que no se pueda poner precio negativo-->
+            </div>
+
+            <div class="col-12 mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea
+                class="form-control"
+                [(ngModel)]="formularioProducto.descripcion"
+                name="descripcion"
+                required
+              ></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">URL de la imagen</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="formularioProducto.urlImagen"
+                name="urlImagen"
+                required
+              />
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label class="form-label"
+                >Tiempo de preparación (en minutos)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="formularioProducto.tiempoPreparacion"
+                name="tiempoPreparacion"
+                required
+              />
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label class="form-label">Stock inicial</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="formularioProducto.stock"
+                name="stock"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Crear Producto</button>
+        </form>
+      </div>
+    </div>
+    <!--pagina para gestionar los productos, podemos actualizar el stock, ocultar o mostrar productos y borrar productos. 
+    También hay un boton de reiniciar Stock para todos los productos -->
+    }@if (mostrarStock) {
+    <div class="mb-4">
+      <h3>Gestión de Productos</h3>
+      <div class="row">
+        @for (producto of productos; track producto._id) {
+        <div class="col-md-6 mb-3">
+          <div class="card position-relative">
+            <button
+              class="btn btn-sm btn-danger position-absolute end-0 top-0 m-2"
+              (click)="confirmarEliminarProducto(producto)"
+            >
+              X
+            </button>
+
+            <div class="card-body">
+              <h5 class="mb-3">{{ producto.nombre }}</h5>
+
+              <div class="d-flex align-items-center mb-3">
+                <span class="me-1">Stock: </span>
+                <input
+                  type="number"
+                  class="form-control me-2"
+                  style="width: 100px"
+                  [(ngModel)]="producto.stock"
+                  min="0"
+                />
+                <button
+                  class="btn btn-sm btn-primary"
+                  (click)="actualizarStock(producto)"
+                >
+                  Actualizar
+                </button>
+              </div>
+              <button
+                class="btn btn-sm w-100"
+                [class.btn-warning]="producto.disponible"
+                [class.btn-success]="!producto.disponible"
+                (click)="ocultarMostrarProducto(producto)"
+              >
+                {{
+                  producto.disponible
+                    ? "Ocultar del catálogo"
+                    : "Mostrar en catálogo"
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      <button class="btn btn-primary" (click)="reinicioStock()">
+        Reiniciar Stock de Productos
+      </button>
+    </div>
+    } 
+    <!-- muestra reservas activas, las pendientes nada más -->
+    @if (!mostrarHistorial && !mostrarStock && !mostrarNuevoProducto) {
+    <h3 class="mb-4">Reservas Activas</h3>
+    @if (reservasActivas.length === 0) {
+    <div class="text-center py-5">
+      <p>No hay reservas activas</p>
+    </div>
+    } @else { @for (reserva of reservasActivas; track reserva._id) {
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <span>Usuario: {{ reserva.usuario }}</span>
+          <br />
+          <span
+            >Realizada: {{ reserva.fechaCreacion | date : "dd/MM/yyyy" }} a las
+            {{ reserva.fechaCreacion | date : "HH:mm" }}</span
+          >
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="me-3">
+            Entregar : {{ reserva.fechaRecogida | date : "dd/MM/yyyy" }} a las
+            {{ reserva.horaRecogida }}
+          </span>
+          <span class="estado-badge fw-bold estado-pendiente">Pendiente</span>
+          <button
+            class="btn btn-success btn-sm"
+            *ngIf="reserva.estado !== 'cancelada'"
+            (click)="marcarCompletada(reserva._id!)"
+          >
+            Marcar como completada
+          </button>
+          @if (reserva.estado === 'cancelada') {
+          <span class="badge bg-danger">Reserva cancelada por el usuario</span>
+          }
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          @for (producto of reserva.productos; track producto.producto) {
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div>
+              {{ producto.producto }}
+              @if (producto.extra) {
+              <small class="text-muted ms-2">({{ producto.extra }})</small>
+              }
+            </div>
+            <div class="text-end">
+              <span>{{ producto.cantidad }}x</span>
+              <span class="ms-2"
+                >{{ producto.precio * producto.cantidad }}€</span
+              >
+            </div>
+          </li>
+          }
+        </ul>
+        <div class="mt-3 text-end">
+          <h5>Total: {{ reserva.precioTotal }}€</h5>
+        </div>
+      </div>
+    </div>
+    } } } 
+    <!-- muestra el historial de reservas, con las completas y canceladas por los usuarios -->
+    @if (mostrarHistorial) {
+    <h3 class="mb-4">Historial de Reservas</h3>
+    @if (historialReservas.length === 0) {
+    <div class="text-center py-5">
+      <p>No hay reservas en el historial</p>
+    </div>
+    } @else { @for (reserva of historialReservas; track reserva._id) {
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <span>Usuario: {{ reserva.usuario }}</span>
+          <br />
+          <span
+            >Realizada: {{ reserva.fechaCreacion | date : "dd/MM/yyyy" }} a las
+            {{ reserva.fechaCreacion | date : "HH:mm" }}</span
+          >
+        </div>
+        <div class="d-flex align-items-center">
+          @if (reserva.estado === 'cancelada') {
+          <span class="estado-badge fw-bold bg-danger"
+            >Cancelada por el usuario</span
+          >
+          } @else if(reserva.estado === 'completada'){
+          <span class="me-2">
+            Recogida: {{ reserva.fechaRecogida | date : "dd/MM/yyyy" }} a las
+            {{ reserva.horaRecogida }}
+          </span>
+          <span class="estado-badge fw-bold estado-completada">Completada</span>
+          }
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          @for (producto of reserva.productos; track producto.producto) {
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div>
+              {{ producto.producto }}
+              @if (producto.extra) {
+              <small class="text-muted ms-2">({{ producto.extra }})</small>
+              }
+            </div>
+            <div class="text-end">
+              <span>{{ producto.cantidad }}x</span>
+              <span class="ms-2"
+                >{{ producto.precio * producto.cantidad }}€</span
+              >
+            </div>
+          </li>
+          }
+        </ul>
+        <div class="mt-3 text-end">
+          <h5>Total: {{ reserva.precioTotal }}€</h5>
+        </div>
+      </div>
+    </div>
+    } } }
+  </div>
+</div>

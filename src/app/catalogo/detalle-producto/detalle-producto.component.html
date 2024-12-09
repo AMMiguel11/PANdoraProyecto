@@ -1,0 +1,98 @@
+@if (producto) {
+<div class="row">
+  <div class="col-md-6">
+    <img
+      [src]="producto.urlImagen"
+      [alt]="producto.nombre"
+      class="img-fluid rounded producto-imagen"
+    />
+  </div>
+<!-- detalles del producto separados por lineas blancas de botones y descripcion-->
+  <div class="col-md-6">
+    <h2>{{ producto.nombre }}</h2>
+    <p class="descripcion">{{ producto.descripcion }}</p>
+
+    <div class="detalles">
+      <p class="precio">{{ producto.precio.toFixed(2) }}€</p>
+      <p>Tiempo de preparación: {{ producto.tiempoPreparacion }} minutos</p>
+      <p>Categoría: {{ producto.categoria }}</p>
+    </div>
+
+    <div class="botones">
+      <button
+        class="btn btn-primary"
+        [disabled]="!authService.isLogeado()"
+        (click)="agregarAlCarrito()"
+      >
+        {{
+          producto.stock > 0 ? "Añadir al carrito" : "Reservar para otro día"
+        }}
+      </button>
+      <button class="btn btn-outline-primary" routerLink="/catalogo">
+        Volver
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h3>Reseñas</h3>
+<!-- si está logeado el usuario puedes ver el formulario para dejar reseñas-->
+      @if (authService.isLogeado()) {
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5>Dejar una reseña</h5>
+          <div class="mb-3">
+            <label>Puntuación:</label>
+            <select class="form-select" [(ngModel)]="nuevaResenia.putuacion">
+              <option value="1">★</option>
+              <option value="2">★ ★</option>
+              <option value="3">★ ★ ★</option>
+              <option value="4">★ ★ ★ ★</option>
+              <option value="5">★ ★ ★ ★ ★</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Comentario:</label>
+            <textarea
+              class="form-control"
+              [(ngModel)]="nuevaResenia.comentario"
+            ></textarea>
+          </div>
+          <button class="btn btn-primary" (click)="enviarResenia()">
+            Enviar Reseña
+          </button>
+        </div>
+      </div>
+      } @if (resenias.length === 0) {
+      <p>No hay reseñas para este producto</p>
+      } 
+      <!--muestra reseñas y si eres admin permite borrarlas-->
+      @else { @for (resenia of resenias; track resenia._id) {
+      <div class="card mb-2 position-relative">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <p class="mb-1">{{ resenia.usuario }}</p>
+            <small class="me-4">{{ resenia.fecha | date }}</small>
+            @if (authService.isAdmin()) {
+              <button
+                class="btn btn-sm btn-danger position-absolute end-0 top-0 m-2"
+                (click)="eliminarResenia(resenia._id!)"
+              >
+                X
+              </button>
+            }
+          </div>
+          <p class="mb-1">
+            @for (star of [1,2,3,4,5]; track star) {
+            <span>{{ star <= resenia.puntuacion ? "★" : "☆" }}</span>
+            }
+          </p>
+          <p class="mb-0">{{ resenia.comentario }}</p>
+        </div>
+      </div>
+      } }
+    </div>
+  </div>
+</div>
+}

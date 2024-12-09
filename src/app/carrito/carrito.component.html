@@ -1,0 +1,101 @@
+<div class="container mt-4">
+  <h2>Mi Carrito</h2>
+  <!-- si no hay productos en el carrito -->
+  @if (carritoService.productosCarrito.length === 0) {
+  <div class="text-center py-5">
+    <p>No hay productos en el carrito</p>
+    <button class="btn btn-primary" routerLink="/catalogo">Ver Catálogo</button>
+  </div>
+  }
+
+  <!-- si hay, iteramos cada producto del carrito -->
+  @else {
+  <div
+    class="card mb-3"
+    *ngFor="let producto of carritoService.productosCarrito"
+  >
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <h5>{{ producto.nombre }}</h5>
+          <p class="text-precio">{{ producto.precio.toFixed(2) }}€</p>
+        </div>
+        <!-- extras según el tipo de producto que sea -->
+        <div class="col-md-4">
+          @if (getTiposExtras(producto).length > 0) {
+          <div class="form-group">
+            <label>{{ getLabelExtras(producto) }}</label>
+            <select class="form-select" [(ngModel)]="producto.extra">
+              @for (tipo of getTiposExtras(producto); track tipo) {
+              <option [value]="tipo">{{ tipo }}</option>
+              }
+            </select>
+          </div>
+          }
+        </div>
+
+        <!-- controles para modificar cantidad y eliminar producto del carrito -->
+        <div class="col-md-4">
+          <div class="d-flex align-items-center">
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="carritoService.menosCantidad(producto)"
+            >
+              -
+            </button>
+            <span class="mx-2">{{ producto.cantidad }}</span>
+            <button
+              class="btn btn-sm btn-outline-primary ms-2"
+              (click)="carritoService.masCantidad(producto)"
+            >
+              +
+            </button>
+            <button
+              class="btn btn-sm btn-danger ms-3"
+              (click)="carritoService.eliminarProducto(producto._id)"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- para escoger el día y la hora de recogida-->
+  <div class="card mb-3" *ngIf="carritoService.productosCarrito.length > 0">
+    <div class="card-body">
+      <h5 class="card-title">Fecha y hora de recogida</h5>
+
+      <div class="mb-3">
+        <label class="form-label">Fecha</label>
+        <select
+          class="form-select"
+          (change)="ponerFecha($any($event.target).value)"
+        >
+          <option value="">Selecciona una fecha</option>
+          <option *ngFor="let dia of diasDispo" [value]="dia.toISOString()">
+            {{ dia | date : "dd-MM-yyyy" }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3" *ngIf="fechaSeleccionada">
+        <label class="form-label">Hora de recogida</label>
+        <select class="form-select" [(ngModel)]="horaSeleccionada">
+          <option value="">Selecciona una hora</option>
+          <option *ngFor="let hora of horariosDispo" [value]="hora">
+            {{ hora }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!--footer con precio total y boton para realizar reserva-->
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <h4>Total: {{ carritoService.getPrecioTotal().toFixed(2) }}€</h4>
+    <button class="btn btn-primary" (click)="hacerReserva()">
+      Realizar Reserva
+    </button>
+  </div>
+  }
+</div>

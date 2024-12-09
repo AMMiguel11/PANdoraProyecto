@@ -1,0 +1,20 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Environment
+.env
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# IDE
+.idea/
+.vscode/

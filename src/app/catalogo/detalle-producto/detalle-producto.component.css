@@ -1,0 +1,55 @@
+.producto-imagen {
+  max-height: 400px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.descripcion {
+  font-size: 1.1rem;
+  margin: 20px 0;
+  color: #666;
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #b8860b;
+}
+
+.detalles {
+  margin: 20px 0;
+  padding: 15px 0;
+  border-top: 2px solid #eee;
+  border-bottom: 2px solid #eee;
+}
+
+.botones {
+  margin-top: 20px;
+}
+
+.resenia-card {
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+}
+
+.puntuacion {
+  font-size: 1.2rem;
+  color: #ffc107;
+}
+
+.comentario {
+  margin-top: 0.5rem;
+  color: #495057;
+}
+
+.form-select,
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.fecha {
+  color: #6c757d;
+  font-size: 0.9rem;
+}

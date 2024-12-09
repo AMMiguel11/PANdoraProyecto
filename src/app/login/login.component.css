@@ -1,0 +1,21 @@
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.btn-primary {
+  margin-top: 1rem;
+}
+
+a {
+  color: var(--color-principal);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-oscuro);
+  text-decoration: underline;
+}
