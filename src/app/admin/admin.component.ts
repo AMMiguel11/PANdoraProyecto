@@ -90,8 +90,7 @@ export class AdminComponent implements OnInit {
     return fechaObj.toLocaleString();
   }
 
-  /* este es un método para que solo se pueda marcar como completada la reserva, si pasa de la hora de la fecha de entrega marcada. hay que incluirlo en el ngIf de marcar como completada */
-  /*   esMismaFecha(fechaRecogida: Date, horaRecogida : string): boolean {
+   esMismaFecha(fechaRecogida: Date, horaRecogida : string): boolean {
     const hoy = new Date();
     const fechaR = new Date(fechaRecogida);
 
@@ -114,7 +113,8 @@ export class AdminComponent implements OnInit {
     const minutosAhora = horaActual * 60 + minutosActual;
 
     return minutosAhora >= minutosRecogida; 
-  } */
+  } 
+
 
   /* actualizar el stock de un producto */
   actualizarStock(producto: Producto) {

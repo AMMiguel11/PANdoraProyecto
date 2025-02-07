@@ -163,9 +163,9 @@
               />
             </div>
 
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3 text-nowrap">
               <label class="form-label"
-                >Tiempo de preparación (en minutos)</label
+                >Tiempo preparación</label
               >
               <input
                 type="number"
@@ -277,7 +277,7 @@
           <span class="estado-badge fw-bold estado-pendiente">Pendiente</span>
           <button
             class="btn btn-success btn-sm"
-            *ngIf="reserva.estado !== 'cancelada'"
+            *ngIf="reserva.estado !== 'cancelada' && esMismaFecha(reserva.fechaRecogida, reserva.horaRecogida)"
             (click)="marcarCompletada(reserva._id!)"
           >
             Marcar como completada
@@ -309,7 +309,7 @@
           }
         </ul>
         <div class="mt-3 text-end">
-          <h5>Total: {{ reserva.precioTotal }}€</h5>
+          <h5>Total: {{ reserva.precioTotal.toFixed(2)}}€</h5>
         </div>
       </div>
     </div>
@@ -370,7 +370,7 @@
           }
         </ul>
         <div class="mt-3 text-end">
-          <h5>Total: {{ reserva.precioTotal }}€</h5>
+          <h5>Total: {{ reserva.precioTotal.toFixed(2) }}€</h5>
         </div>
       </div>
     </div>

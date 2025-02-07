@@ -46,6 +46,12 @@ Thumbs.db
 /.angular
 
 # Environment
-.env
+/backend/.env
+
+#backend
+/backend/node_modules/
+/backend/npm-debug.log
+
+
 
 

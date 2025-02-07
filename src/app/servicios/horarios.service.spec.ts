@@ -1,16 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HorariosService } from './horarios.service';
+import { ProductoCarrito } from './carrito.service';
+let service: HorariosService;
 
+/* verificar que el tiempo de preparación total se calcula correctamente, seleccionando el mayor tiempo y añadiendole 15min */
 describe('HorariosService', () => {
   let service: HorariosService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(HorariosService);
+    service = new HorariosService();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('debe calcular el tiempo de preparacion total', () => {
+    const productos = [
+      { tiempoPreparacion: 10 },
+      { tiempoPreparacion: 15 },
+      { tiempoPreparacion: 5 }
+    ] as ProductoCarrito[];
+    
+    expect(service.tiempoPreparacionTotal(productos)).toBe(30);
   });
 });
+
