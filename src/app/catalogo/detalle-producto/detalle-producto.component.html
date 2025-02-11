@@ -43,7 +43,7 @@
         <div class="card-body">
           <h5>Dejar una reseña</h5>
           <div class="mb-3">
-            <label>Puntuación:</label>
+            <label for="form">Puntuación:</label>
             <select class="form-select" [(ngModel)]="nuevaResenia.putuacion">
               <option value="1">★</option>
               <option value="2">★ ★</option>
@@ -53,7 +53,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label>Comentario:</label>
+            <label for="form">Comentario:</label>
             <textarea
               class="form-control"
               [(ngModel)]="nuevaResenia.comentario"

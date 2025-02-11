@@ -12,9 +12,9 @@ import { AuthService } from '../servicios/auth.service';
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent {
-  email: string = '';
-  nombreUsu: string = '';
-  pass: string = '';
+  email = '';
+  nombreUsu = '';
+  pass = '';
   error: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}

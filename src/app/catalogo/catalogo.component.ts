@@ -16,8 +16,8 @@ export class CatalogoComponent implements OnInit {
   productos: Producto[] = [];
   productosFiltrados: Producto[] = [];
   categorias: string[] = [];
-  palabra: string = '';
-  categoria: string = '';
+  palabra = '';
+  categoria = '';
 
   constructor(private productosService: ProductosService) {}
 
@@ -30,9 +30,9 @@ export class CatalogoComponent implements OnInit {
     this.productosService.getProductos().subscribe((productos) => {
       this.productos = productos.filter((p) => p.disponible);
       this.productosFiltrados = this.productos;
-      let todasLasCategorias: string[] = [];
+      const todasLasCategorias: string[] = [];
 
-      for (let producto of productos) {
+      for (const producto of productos) {
         if (!todasLasCategorias.includes(producto.categoria)) {
           todasLasCategorias.push(producto.categoria);
         }

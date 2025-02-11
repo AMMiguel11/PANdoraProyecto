@@ -24,7 +24,7 @@
         <div class="col-md-4">
           @if (getTiposExtras(producto).length > 0) {
           <div class="form-group">
-            <label>{{ getLabelExtras(producto) }}</label>
+            <label for="inputId">{{ getLabelExtras(producto) }}</label>
             <select class="form-select" [(ngModel)]="producto.extra">
               @for (tipo of getTiposExtras(producto); track tipo) {
               <option [value]="tipo">{{ tipo }}</option>
@@ -68,7 +68,7 @@
       <h5 class="card-title">Fecha y hora de recogida</h5>
 
       <div class="mb-3">
-        <label class="form-label">Fecha</label>
+        <label for="form-label">Fecha</label>
         <select
           class="form-select"
           (change)="ponerFecha($any($event.target).value)"
@@ -80,7 +80,7 @@
         </select>
       </div>
       <div class="mb-3" *ngIf="fechaSeleccionada">
-        <label class="form-label">Hora de recogida</label>
+        <label for="form-label">Hora de recogida</label>
         <select class="form-select" [(ngModel)]="horaSeleccionada">
           <option value="">Selecciona una hora</option>
           <option *ngFor="let hora of horariosDispo" [value]="hora">

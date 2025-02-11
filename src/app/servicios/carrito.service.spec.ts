@@ -1,5 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-
 import { CarritoService, ProductoCarrito } from './carrito.service';
 
 /* verificar que el precio total del carrito se calcula correctamente */

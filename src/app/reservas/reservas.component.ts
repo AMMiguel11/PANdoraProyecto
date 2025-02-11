@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class ReservasComponent implements OnInit {
   reservasActivas: Reserva[] = [];
   historialReservas: Reserva[] = [];
-  mostrarHistorial: boolean = false;
+  mostrarHistorial = false;
 
   constructor(
     private reservasService: ReservasService,

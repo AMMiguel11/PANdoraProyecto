@@ -31,7 +31,7 @@ export class CarritoComponent {
   rellenosEmpanada = ['Atún', 'Carne', 'Pollo', 'Verduras'];
 
   fechaSeleccionada: Date | null = null;
-  horaSeleccionada: string = '';
+  horaSeleccionada = '';
   diasDispo: Date[] = [];
   horariosDispo: string[] = [];
 
@@ -77,7 +77,7 @@ export class CarritoComponent {
   }
   /* validar que ese producto tiene extras */
   validarExtras(): boolean {
-    for (let producto of this.carritoService.productosCarrito) {
+    for (const producto of this.carritoService.productosCarrito) {
       if (this.getTiposExtras(producto).length > 0 && !producto.extra) {
         return false;
       }
@@ -151,7 +151,7 @@ export class CarritoComponent {
         extra: p.extra,
       })),
       fechaCreacion: new Date(),
-      estado: 'pendiente' as 'pendiente', // el 'as pendiente' sirve para indicarle a typescript que el tipo es 'pendiente' y no cualquier string, sino da error
+      estado: 'pendiente' as const, // el 'as pendiente' sirve para indicarle a typescript que el tipo es 'pendiente' y no cualquier string, sino da error
       precioTotal: this.carritoService.getPrecioTotal(),
       fechaRecogida: fechaRecogida,
       horaRecogida: this.horaSeleccionada,

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import {from, Observable } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import {
   createUserWithEmailAndPassword,
@@ -57,5 +57,4 @@ export class AuthService {
     return this.firebaseAuth.currentUser?.displayName || 'Usuario';
   }
 
-  constructor() {}
 }

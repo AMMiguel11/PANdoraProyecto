@@ -5,7 +5,6 @@ import { ProductoCarrito } from './carrito.service';
   providedIn: 'root',
 })
 export class HorariosService {
-  constructor() {}
 
   /* el tiempo de preparación será 15 min más del producto con más tiempo de preparación del carrito */
   tiempoPreparacionTotal(productos: ProductoCarrito[]): number {

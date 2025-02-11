@@ -1,8 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-
 import { HorariosService } from './horarios.service';
 import { ProductoCarrito } from './carrito.service';
-let service: HorariosService;
 
 /* verificar que el tiempo de preparación total se calcula correctamente, seleccionando el mayor tiempo y añadiendole 15min */
 describe('HorariosService', () => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reserva } from '../interfaces/reserva';
 import { ReservasService } from '../servicios/reservas.service';
-import { CommonModule, DatePipe, NumberSymbol } from '@angular/common';
+import { CommonModule, DatePipe} from '@angular/common';
 import { ProductosService } from '../servicios/productos.service';
 import { Producto } from '../interfaces/producto';
 import { FormsModule } from '@angular/forms';
@@ -17,10 +17,10 @@ import { ProductoNuevo } from '../interfaces/productoNuevo';
 export class AdminComponent implements OnInit {
   reservasActivas: Reserva[] = [];
   historialReservas: Reserva[] = [];
-  mostrarHistorial: boolean = false;
+  mostrarHistorial = false;
   productos: Producto[] = [];
-  mostrarStock: boolean = false;
-  mostrarNuevoProducto: boolean = false;
+  mostrarStock = false;
+  mostrarNuevoProducto = false;
   formularioProducto: ProductoNuevo = {
     nombre: '',
     descripcion: '',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {
   RouterOutlet,
   RouterLink,
@@ -6,7 +6,6 @@ import {
   Router,
 } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from './servicios/auth.service';
 
 @Component({
