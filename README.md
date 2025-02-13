@@ -1,27 +1,64 @@
-# PandoraPanaderia
+# Pandora Panaderia - Sistema de Reservas de panadería online
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+**Plataforma full-stack para gestión de reservas en panaderías**  
+*Desarrollada con MongoDB, Express, Angular y Node.js. Con Firebase para autenticación.*
 
-## Development server
+## 🚀 Funcionalidades clave  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 👤 **Clientes**  
+- ✅ Catálogo interactivo con productos (filtros por categoría y nombre).  
+- 🛒 Carrito dinámico con selección de cantidades y preferencias.  
+- 📅 Reservas con fecha/hora de recogida.  
+- 📜 Historial de reservas (activas y completadas).  
+- ⭐ Sistema de reseñas con valoración por estrellas.  
 
-## Code scaffolding
+### 👔 **Administradores**  
+- 🔒 Panel de control avanzado (CRUD de productos).  
+- 📊 Gestión de stock en tiempo real.
+- 📅 Gestión de reservas de todos los clientes, incluyendo historial.
+- 🛠️ Moderación de reseñas (eliminar contenido inapropiado).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## 🛠️ Tecnologías  
+| **Capa**       | **Tecnologías**                                                                 |  
+|----------------|---------------------------------------------------------------------------------|  
+| **Frontend**   | Angular 18, Angular Material, TypeScript, HTML5, CSS, Bootstrap                 |  
+| **Backend**    | Node.js, Express, MongoDB, Firebase (Auth), Javascript                          |  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## ⚙️ Configuración rápida  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clona el repositorio:  
+```bash
+  git clone https://github.com/AMMiguel11/PANdoraProyecto.git
+  cd PANdoraProyecto
+```
+2. Configura las variables de entorno (.env):
+```bash
+  # Firebase
+  FIREBASE_API_KEY=your_key
+  FIREBASE_AUTH_DOMAIN=your_domain
 
-## Running end-to-end tests
+  # MongoDB
+  MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/panaderia
+```
+3. Instala dependencias:
+```bash
+  npm install
+```
+4. Ejecuta la aplicación:
+```bash
+# Frontend 
+  ng serve (http://localhost:4200)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Backend
+  cd backend
+  node index.js  (http://localhost:3000)
+```
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+
+
+
