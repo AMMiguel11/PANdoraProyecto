@@ -13,7 +13,7 @@ import {
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
-  private adminEmail = 'miguelam20@educastur.es';
+  private adminEmail = 'admin@admin.admin';
 
   /* comprobar que el usuario está logeado */
   isLogeado(): boolean {
