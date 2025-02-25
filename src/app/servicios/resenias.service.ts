@@ -7,7 +7,7 @@ import { Resenia } from '../interfaces/resenia';
   providedIn: 'root',
 })
 export class ReseniasService {
-  private apiUrl = 'http://localhost:3000/api/resenias';
+  private apiUrl = 'https://pandoraproyecto-production.up.railway.app/api/resenias';
 
   constructor(private http: HttpClient) {}
 

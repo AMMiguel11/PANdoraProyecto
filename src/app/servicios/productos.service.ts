@@ -7,7 +7,7 @@ import { Producto } from '../interfaces/producto';
   providedIn: 'root',
 })
 export class ProductosService {
-  private apiUrl = 'http://localhost:3000/api/productos';
+  private apiUrl = 'https://pandoraproyecto-production.up.railway.app/api/productos';
 
   constructor(private http: HttpClient) {}
 
