@@ -79,6 +79,7 @@ body {
 
 .custom-navbar .navbar-nav .nav-link {
   color: var(--color-claro);
+  cursor: pointer;
 }
 
 .custom-navbar .nav-link.active {
